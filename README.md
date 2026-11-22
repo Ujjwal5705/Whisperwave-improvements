@@ -1,6 +1,6 @@
 # What I’d improve on Whisper Wave
 
-[SEO, logo, and color review](Ujjwal-Sharma-Whisper-Wave-SEO-and-Brand-Review.md)
+[SEO, logo, and color review](Ujjwal-Sharma-Whisper-Wave-SEO-and-Brand-Review.md) · [Public journey tests](Ujjwal-Sharma-Whisper-Wave-Public-Journey-Tests.md)
 
 I looked through Whisper Wave on mobile and desktop. The Home screen stood out to me. It explains how to pick a name, meet someone, and keep in touch if you both want to. I’d bring that same clarity to the rest of the site.
 
