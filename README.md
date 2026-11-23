@@ -1,6 +1,6 @@
 # What I’d improve on Whisper Wave
 
-[SEO, logo, and color review](Ujjwal-Sharma-Whisper-Wave-SEO-and-Brand-Review.md) · [Public journey tests](Ujjwal-Sharma-Whisper-Wave-Public-Journey-Tests.md) · [Funnel review](Ujjwal-Sharma-Whisper-Wave-Funnel-Review.md) · [Accessibility and performance review](Ujjwal-Sharma-Whisper-Wave-Accessibility-and-Performance-Review.md) · [Privacy and moderation review](Ujjwal-Sharma-Whisper-Wave-Privacy-and-Moderation-Review.md)
+[SEO, logo, and color review](Ujjwal-Sharma-Whisper-Wave-SEO-and-Brand-Review.md) · [Public journey tests](Ujjwal-Sharma-Whisper-Wave-Public-Journey-Tests.md) · [Funnel review](Ujjwal-Sharma-Whisper-Wave-Funnel-Review.md) · [Accessibility and performance review](Ujjwal-Sharma-Whisper-Wave-Accessibility-and-Performance-Review.md) · [Privacy and moderation review](Ujjwal-Sharma-Whisper-Wave-Privacy-and-Moderation-Review.md) · [Public security review](Ujjwal-Sharma-Whisper-Wave-Public-Security-Review.md)
 
 I looked through Whisper Wave on mobile and desktop. The Home screen stood out to me. It explains how to pick a name, meet someone, and keep in touch if you both want to. I’d bring that same clarity to the rest of the site.
 
