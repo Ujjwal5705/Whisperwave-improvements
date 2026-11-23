@@ -1,6 +1,6 @@
 # Accessibility and performance checks for Whisper Wave
 
-I’d fix keyboard focus, the Sign in form, and the moving pricing screen first. Someone who uses Tab can lose track of where they are on the landing page or reach the registration form while Sign in is on screen. In two desktop WebKit captures, registration text also appeared mirrored over Sign in. On mobile-sized Pricing, a single layout shift moved the next section down about 449 px.
+Tab took me into registration fields while Sign in was still on screen. Two fresh captures in desktop WebKit showed the registration text mirrored over that same form. I also checked focus on the landing page and measured a roughly 449 px jump in the mobile-sized Pricing layout. Each issue is easier to see by using the page than by looking at its final state.
 
 ## What the evidence covers
 
@@ -21,7 +21,7 @@ I checked the live homepage on 23 November and confirmed it still serves the sam
 
 The first desktop links received focus without an outline or a clear focus ring. A later call to action, **Get it off your chest**, received focus while its parent still had zero opacity. The landing page had no skip link to the main content.
 
-I’d give links and buttons a visible focus treatment, add **Skip to main content**, and keep interactive content visible when it receives focus. I’d Tab from the top without touching the mouse, then reverse with Shift+Tab. Watch for focus behind sticky elements and on items the page scrolls into view. [WCAG 2.2 focus visible](https://www.w3.org/TR/WCAG22/#focus-visible)
+Give links and buttons a visible focus ring, add **Skip to main content**, and reveal interactive content when it receives focus. To retest, start at the top with Tab and reverse with Shift+Tab. Watch for focus behind sticky elements and on items the page scrolls into view. [WCAG 2.2 focus visible](https://www.w3.org/TR/WCAG22/#focus-visible)
 
 [Desktop landing capture](whisper-wave-screenshots/desktop-homepage.jpg)
 
@@ -29,7 +29,7 @@ I’d give links and buttons a visible focus treatment, add **Skip to main conte
 
 In the public journey check, I tabbed through Sign in. After **Create an account**, focus went into the registration email and password fields and eventually to **Send code**, even though I hadn’t switched modes. This was a keyboard check in the 390 px Chrome layout.
 
-I’d remove the inactive face from the tab order and accessibility tree. When someone switches modes, put focus in the active form. This needs a keyboard and screen-reader check in both directions.
+Keep only the visible form in the tab order and accessibility tree. Move focus into the new form when the user switches modes. Check both directions with a keyboard and a screen reader.
 
 [Sign in form](whisper-wave-journey-screenshots/rooms-account-sign-in.jpg) · [Registration form](whisper-wave-journey-screenshots/rooms-account-registration.jpg)
 
@@ -41,7 +41,7 @@ Two fresh snapshots taken in a standalone desktop WebKit view also showed mirror
 
 The alias field had a visible focus treatment. An invalid alias showed “Username must be at least 3 characters” next to a field labeled **Your alias**. The input received `aria-invalid="true"` and the inspected markup had no `aria-describedby` pointing at the message.
 
-I’d use “Alias” in the error, associate the visible message with its field, and check when the screen reader announces it. The age gate and the rest of the form should stay available while the user corrects the value. [WCAG error identification](https://www.w3.org/TR/WCAG22/#error-identification)
+Use “Alias” in the error and associate the visible message with its field. Then check when the screen reader announces it. The age gate and the rest of the form should stay available while the user corrects the value. [WCAG error identification](https://www.w3.org/TR/WCAG22/#error-identification)
 
 [The invalid alias state](whisper-wave-journey-screenshots/chat-alias-error.jpg)
 
@@ -55,11 +55,11 @@ I’d bring normal text to at least 4.5:1, underline body-copy links, and test e
 
 ### 5. Some controls need clearer names, states, and ways to reach them
 
-- The FAQ’s accessible names included “Someone” before question text. I’d hide the decorative prefix from assistive technology and keep the question itself as the button name.
-- The mobile landing carousel flagged a scrollable region without enough keyboard access. The little dot controls are difficult to discover. I’d stack the cards, or provide visible, labeled Previous and Next controls with a clear selected state.
-- The Apps page scan flagged a link in a tab list that didn’t have the expected tab semantics. I’d give actions that change a panel proper tab semantics and use ordinary links for navigation to another page.
-- Some Memes loading placeholders had `aria-label` on generic elements. I’d hide purely decorative placeholders and provide a meaningful status when the feed actually needs to announce one.
-- The Pricing duration picker showed a visible selected pill, but its selected state wasn’t exposed in the inspected controls. I’d use a labeled radio group or the appropriate selected state for the chosen pattern.
+- The FAQ’s accessible names included “Someone” before question text. Use just the question as the button’s accessible name.
+- The mobile landing carousel flagged a scrollable region without enough keyboard access. The little dot controls are difficult to discover. Stack the cards or give the carousel visible, labeled Previous and Next controls with a clear selected state.
+- The Apps page scan flagged a link in a tab list that didn’t have the expected tab semantics. Use tabs for actions that change a panel. Use ordinary links for navigation to another page.
+- Some Memes loading placeholders had `aria-label` on generic elements. Hide decorative placeholders from assistive technology. Announce loading when the feed needs to give people that information.
+- The Pricing duration picker showed a visible selected pill, but its selected state wasn’t exposed in the inspected controls. Use a labeled radio group or expose the selected state for the chosen control.
 - Some touch controls in mobile emulation are small. The Whisper gender options were 32 px high, a vibe chip was 25 px high, and the Report icon in Memes was about 27 px wide. I’d enlarge common controls and add separation around adjacent actions. WCAG 2.2 AA uses a 24 × 24 CSS px target minimum or applicable exceptions. For important actions I’d aim closer to 44 px. [WCAG minimum target size](https://www.w3.org/TR/WCAG22/#target-size-minimum)
 
 The 320 px homepage check found no page-level horizontal overflow. The carousel and tab strips still need testing with touch and keyboard. The automated results point to specific issues and don’t establish WCAG conformance.
@@ -107,7 +107,7 @@ The live homepage declares **51 JavaScript module preloads**. The list includes 
 
 In the 390 × 844 Chrome capture, the page’s non-input layout-shift sum was about 0.322. A follow-up trace recorded a single shift of about 0.321. The **Match Line** section moved from roughly 326 px to 775 px down the screen as the offer area loaded. The desktop capture showed a smaller sum of about 0.104. The mobile Safety capture also accumulated about 0.167 in shifts. These are diagnostic browser samples. Google evaluates CLS over layout-shift session windows and reports field experience separately.
 
-I’d put a correctly sized placeholder in the initial Pricing layout, at each breakpoint, so the plan selector and content beneath it stay put. I’d retest across several cold loads and check that the same control is under the keyboard or touch focus after the content settles. [Layout-shift measurement](https://web.dev/articles/cls)
+Reserve the plan selector’s space in the initial layout at each breakpoint. Retest several cold loads. Check that the control people are about to tap or activate with the keyboard stays in place after the page settles. [Layout-shift measurement](https://web.dev/articles/cls)
 
 [Settled mobile pricing screen](whisper-wave-screenshots/pricing.jpg)
 

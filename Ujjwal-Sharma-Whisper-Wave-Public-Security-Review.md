@@ -1,6 +1,6 @@
 # Public security checks for Whisper Wave
 
-I checked the public site’s transport, browser protections, guest cookie, signed-out profile response, and security contact route on 23 November 2026. The site has a useful baseline. HTTPS and the main browser protections were present across the sampled pages. I’d fix the public security contact, review why the guest cookie is marked for cross-site use, and simplify the browser policy.
+I made ordinary requests to the public site on 23 November 2026 and checked the TLS connection, response headers, guest cookie, signed-out profile response, and security contact. The sampled pages consistently served HTTPS and the same framing rules. The security contact URL was the clearest fix. It returned the homepage instead of the advertised text file.
 
 This was a read-only review of public responses and deployed frontend code. I used ordinary HTTPS requests and standard TLS handshakes. Verifying account isolation, authenticated sessions, file access, and payments requires an authorized test environment.
 
@@ -24,7 +24,7 @@ I checked eight public page routes along with the profile response, the document
 
 The public `/.well-known/security.txt` URL returned HTTP 200 and `text/html`. Its response body matched the homepage app shell. A person or tool looking for the disclosure file won’t get contact instructions from that response.
 
-I’d serve a real UTF-8 plain-text file at that URL, with a security contact and expiry. Add a short disclosure policy so people know where to report a concern privately. Check the deployed content type and file contents to make sure the app’s fallback routing leaves this path alone. [RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)
+Serve a UTF-8 plain-text file at that URL with a security contact and expiry. A short disclosure policy can tell people how to send a concern privately. Check the deployed content type and file contents to make sure the app’s fallback routing leaves this path alone. [RFC 9116](https://www.rfc-editor.org/rfc/rfc9116)
 
 ### 2. Narrow the guest cookie when the product can
 
@@ -34,15 +34,15 @@ Treat the guest identifier as a way to recognize a browser. Keep server-side aut
 
 ### 3. Make the resource policy easier to maintain
 
-The script policy names specific providers. Image, font, and style directives also allow the entire HTTPS scheme, and the style policy permits inline styles. I’d inventory what the public entry pages, chat, sign-in, and checkout actually load. Replace broad allowances where a smaller list works, and test the new policy in report-only mode before enforcing it.
+The script policy names specific providers. Image, font, and style directives also allow the entire HTTPS scheme, and the style policy permits inline styles. List the resources the public pages, chat, sign-in, and checkout actually load. Where a shorter list works, narrow the allowance and check the new policy in report-only mode before enforcing it.
 
 The browser also blocked a Cloudflare beacon injected into the page. I’d remove that script if it’s unused, or make an explicit decision about allowing it and what it should measure. Keep the script policy deliberate as providers change. [OWASP Content Security Policy guidance](https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html) · [Funnel review](Ujjwal-Sharma-Whisper-Wave-Funnel-Review.md)
 
 ### 4. Use one referrer policy and set browser permissions deliberately
 
-The homepage response sent `Referrer-Policy: no-referrer`. Its HTML also contains a referrer meta tag with `strict-origin-when-cross-origin`. I’d use one policy that matches the product’s privacy intent and check the effective behavior for outbound links and integrations.
+The homepage response sent `Referrer-Policy: no-referrer`. Its HTML also contains a referrer meta tag with `strict-origin-when-cross-origin`. Choose one policy that matches the site’s privacy goals. Check what happens on outbound links and integrations.
 
-The sampled pages had no `Permissions-Policy` header. I’d check which browser features are needed and explicitly restrict the ones the product doesn’t use. Test supported file attachments and any integrations before enforcing it. [W3C Referrer Policy](https://www.w3.org/TR/referrer-policy/) · [W3C Permissions Policy](https://www.w3.org/TR/permissions-policy/)
+The sampled pages had no `Permissions-Policy` header. List the browser features the product uses and explicitly restrict the rest. Test supported file attachments and any integrations before enforcing it. [W3C Referrer Policy](https://www.w3.org/TR/referrer-policy/) · [W3C Permissions Policy](https://www.w3.org/TR/permissions-policy/)
 
 ### 5. Review where the signup verification state lives
 

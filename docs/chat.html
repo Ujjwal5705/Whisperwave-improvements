@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#15101d">
+  <title>Start a text chat | Whisper Wave</title>
+  <meta name="description" content="Try the guest chat demo. Pick an alias, choose an optional topic, and explore how a text conversation would work.">
+  <meta property="og:title" content="Start a text chat | Whisper Wave">
+  <meta property="og:description" content="Try the guest chat demo. Pick an alias, choose an optional topic, and explore how a text conversation would work.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/whisper-wave-mark-64.png" type="image/png">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body data-page="chat">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="wordmark" href="index.html"><img src="assets/whisper-wave-mark-64.png" width="38" height="38" alt=""><span>Whisper<strong> Wave</strong></span></a>
+      <nav class="top-nav" aria-label="Main"><a href="rooms.html">Rooms</a><a href="prompts.html">Prompts</a><a href="safety.html">Safety</a></nav>
+      <a class="button button-primary header-action" href="chat.html" aria-current="page">Start a chat</a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="shell inner-page">
+  <div class="page-intro">
+    <p class="eyebrow">Chat preview</p>
+    <h1>One-to-one text chat.</h1>
+    <p class="lead">Try a conversation with a scripted partner. What you type stays in this tab.</p>
+  </div>
+  <div class="split-layout">
+    <div class="panel" id="entry-panel" hidden>
+      <form id="guest-entry">
+        <label for="alias">Alias</label>
+        <div class="input-row">
+          <input id="alias" name="alias" type="text" minlength="2" maxlength="24" required autocomplete="off" spellcheck="false" aria-describedby="alias-help">
+          <button class="button button-outline" type="button" id="suggest-alias">Suggest one</button>
+        </div>
+        <p id="alias-help" class="small">The other person would see this name. Use 2 to 24 characters and leave out personal details.</p>
+        <label class="check-row"><input type="checkbox" name="adult" required> <span>I’m 18 or older.</span></label>
+        <details class="preferences" id="optional-topic">
+          <summary>Choose a topic <span class="small">Optional</span></summary>
+          <label for="topic">Match preference</label>
+          <select id="topic" name="topic">
+            <option value="">Any topic</option><option value="music">Music</option>
+            <option value="late-night">Late Night</option><option value="games">Games</option>
+          </select>
+          <p class="small">Use it to start the conversation. Leaving it open keeps the demo flexible.</p>
+        </details>
+        <p id="entry-prompt" class="selected-prompt" hidden></p>
+        <button type="submit" class="button button-primary">Start demo chat</button>
+      </form>
+    </div>
+    <div class="panel waiting-panel" id="waiting-panel" hidden>
+      <p class="eyebrow">Demo queue</p>
+      <h2 id="waiting-title" tabindex="-1">Looking for a partner</h2>
+      <p id="waiting-note" role="status">You can cancel the search at any time.</p>
+      <div class="actions">
+        <button type="button" class="button button-primary" id="meet-partner">Open demo conversation</button>
+        <button type="button" class="button button-outline" id="cancel-search">Cancel search</button>
+      </div>
+      <a class="quiet-link" href="rooms.html">Browse rooms instead</a>
+    </div>
+    <div class="panel chat-panel" id="chat-panel" hidden>
+      <div class="chat-head">
+        <div><p class="eyebrow">Scripted demo</p><h2 id="chat-title" tabindex="-1">Chat with Moonlit</h2></div>
+        <button type="button" class="button button-outline" id="leave-chat">Leave chat</button>
+      </div>
+      <div id="messages" class="messages" role="log" aria-label="Demo messages" tabindex="0"></div>
+      <form id="message-form">
+        <label for="message">Your message</label>
+        <div class="input-row"><input id="message" name="message" type="text" maxlength="320" required autocomplete="off"><button class="button button-primary" type="submit">Send</button></div>
+      </form>
+      <button class="text-button" type="button" id="use-prompt" hidden>Use selected prompt</button>
+      <div class="moderation-actions">
+        <button type="button" class="text-button" id="block-alias">Block alias</button>
+        <button type="button" class="text-button" id="report-chat">Report and leave</button>
+      </div>
+    </div>
+    <div class="panel" id="ended-panel" hidden>
+      <p class="eyebrow">Demo chat</p>
+      <h2 id="ended-title" tabindex="-1">You left the chat.</h2>
+      <p id="ended-note"></p>
+      <div class="actions"><button type="button" class="button button-primary" id="restart-chat">Back to guest setup</button><a class="button button-outline" href="rooms.html">Browse rooms</a></div>
+    </div>
+    <section class="side-note">
+      <h2>Before you chat</h2>
+      <p>Keep your real name, address, and contact details private. If the conversation crosses a line, you can leave immediately.</p>
+      <a class="quiet-link" href="safety.html">Read the safety guide</a>
+    </section>
+  </div>
+</section>
+<dialog id="report-dialog" aria-labelledby="report-title">
+  <form id="report-form">
+    <h2 id="report-title">Report and leave</h2>
+    <p>This shows how the report would work. The demo clears the conversation and sends no report or messages.</p>
+    <label for="reason">What happened?</label>
+    <select id="reason" name="reason" required>
+      <option value="">Choose a reason</option><option>Harassment</option><option>Spam or scam</option><option>Inappropriate content</option><option>Something else</option>
+    </select>
+    <div class="actions">
+      <button class="button button-primary" type="submit">Preview report and leave</button>
+      <button class="button button-outline" type="button" id="close-report">Back to chat</button>
+    </div>
+  </form>
+</dialog>
+<noscript><p class="shell">The interactive chat demo needs JavaScript. The rooms and safety guide are available to read.</p></noscript>
+  </main>
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div><a class="wordmark" href="index.html"><img src="assets/whisper-wave-mark-64.png" width="38" height="38" alt=""><span>Whisper<strong> Wave</strong></span></a><p>Independent redesign prototype by Ujjwal Sharma</p></div>
+      <nav aria-label="Footer">
+        <a href="rooms.html">Rooms</a>
+        <a href="safety.html">Safety</a>
+        <a href="pass.html">Spark Pass</a>
+        <a href="https://github.com/Ujjwal5705/Whisperwave-improvements">Research notes</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

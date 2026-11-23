@@ -1,6 +1,6 @@
 # Privacy and moderation checks for Whisper Wave
 
-I looked at what a guest is told before a chat and what the public site actually does on an ordinary visit. The first fix I’d make is to replace the broad privacy promises with plain explanations at the point where someone joins a chat, sends a photo, or reports something. I’d also give guests an in-site way to report after they’ve left.
+The Whisper form says chats vanish when you leave. That made me check what the site says about photos, reports, and saved chats, then look at what the browser does before a guest has made any choices. I also followed the public Report abuse path to see what someone can do after leaving a conversation.
 
 I checked 12 public routes in isolated WebKit sessions on 23 November 2026. I compared the visible policy and product pages, checked which hosts the browser contacted, and looked at cookie attributes and storage keys. I blocked write requests and live sockets. The chat and room control wording comes from the deployed frontend. Report delivery, actual deletion, staff actions, and blocking outcomes need a controlled environment.
 
@@ -31,7 +31,7 @@ The Whisper entry says **“chats vanish when you leave”** and **“completely
 
 I’d use a short entry message such as “Use a nickname to chat. Ordinary chat text is temporary. Reports can save evidence, and photos have separate rules.” Link to a short explanation that says who can see the alias and what the service keeps. Put the photo retention notice beside the upload action and repeat the key points when someone reports or saves a conversation.
 
-I’d also clarify when the one-year period begins and how the general report expiry applies to photos that are otherwise kept until an admin deletes them. A cookie expiring after 30 days tells us when the browser drops the cookie. The associated records need their own retention explanation and test.
+Spell out when the one-year period starts and how report expiry applies to photos that are otherwise kept until an admin deletes them. A cookie expiring after 30 days tells us when the browser drops the cookie. The associated records need their own retention explanation and test.
 
 [Whisper form](whisper-wave-screenshots/chat-entry.png) · [Privacy Policy excerpt](whisper-wave-screenshots/privacy.png) · [Current share card](whisper-wave-seo-screenshots/current-share-card.png)
 
@@ -39,7 +39,7 @@ I’d also clarify when the one-year period begins and how the general report ex
 
 The Cookies page says “Nothing from Google loads before you agree” in its ad section. The Privacy Policy uses similar wording. The browser requested Google Fonts and the Google sign-in script before I made any choice, including on the public Privacy and Report abuse pages. I saw no AdSense request in those same visits.
 
-I’d change the sentence to specifically name **AdSense**. Explain font and sign-in requests separately, and load sign-in code where someone can actually choose **Continue with Google**. I’d check the full ad consent flow in a controlled session, including **No thanks**, **Show ads**, the waiting screen, and what happens after reloading.
+Name **AdSense** in that sentence. Explain the font and sign-in requests separately. Load sign-in code where someone can actually choose **Continue with Google**. I’d check the full ad consent flow in a controlled session, including **No thanks**, **Show ads**, the waiting screen, and what happens after reloading.
 
 [Cookies page](https://whisperwave.space/cookies) · [Privacy Policy](https://whisperwave.space/privacy)
 
@@ -49,7 +49,7 @@ The Privacy Policy describes account details as being created only after mutual 
 
 The Cookies page lists several reasons for browser storage but doesn’t mention the signup draft. The deployed code has a draft for progressing through signup. Its shape can include email, username, and a verification token during the flow. I only verified its pre-submission state.
 
-I’d explain the two ways someone can reach registration and which data is collected along each path. Describe the signup draft, what clears it, and when it expires. Near the room join button, explain that signed-in members may show their account name and photo while a guest uses an alias. Use **anonymous** to say something concrete about what the other person sees.
+Explain how people reach registration and which data each path collects. Describe the signup draft, what clears it, and when it expires. Near the room join button, explain that signed-in members may show their account name and photo while a guest uses an alias. Use **anonymous** to say something concrete about what the other person sees.
 
 [Public registration form](whisper-wave-journey-screenshots/rooms-account-registration.jpg)
 
@@ -67,16 +67,16 @@ I’d add a guest report form with optional reply details. Explain what the mode
 
 The public pages describe immediate blocking and a safe exit. The deployed Whisper report dialog offers a reason, optional details, and **Report & leave**. It says reports are anonymous and the two people won’t be matched for 30 days. The Safety page says moderators may see an alias, message text, and time. “Anonymous” needs to tell the reporter whose view it refers to.
 
-I’d keep **Leave now** easy to reach even if reporting fails. Give **Block** and **Report & leave** distinct labels and say what each one does. Before a report is sent, explain what evidence is included, whether the reported person gets a notification, and how long the block or rematch restriction lasts. The 30-day statement in the dialog describes reporting. Verify the duration separately for a normal block.
+Keep **Leave now** available if reporting fails. Give **Block** and **Report & leave** distinct labels and explain what happens after each one. Before a report is sent, explain what evidence is included, whether the reported person gets a notification, and how long the block or rematch restriction lasts. The 30-day statement in the dialog describes reporting. Verify the duration separately for a normal block.
 
 [Safety page](https://whisperwave.space/safety) · [Report abuse](https://whisperwave.space/report)
 
 ### 6. Make room rules and response commitments consistent
 
-- **Moderator availability.** The Venting card showed **Waiting for a moderator** with **Join** in the earlier journey test. The lobby says **Always open**, offers **Join room**, and lists the 18+ rule in its house rules. I’d show whether a guest can enter and post before joining, and how moderation status affects those actions.
+- **Moderator availability.** The Venting card showed **Waiting for a moderator** with **Join** in the earlier journey test. The lobby says **Always open**, offers **Join room**, and lists the 18+ rule in its house rules. Before a guest joins, show whether they can enter or post and whether that depends on a moderator being present.
 - **Private rooms.** The Terms describe live rooms as public. The Community Guidelines also describe private invite-only rooms with the same rules and reporting. I’d state from the start which rules apply to public rooms and which identities, posts, and moderators are visible in private rooms.
 - **Response wording.** Safety says removal is targeted within two hours for certain serious categories. Report abuse says action is taken within two hours for those categories. Both describe a 24-hour acknowledgement and a seven-day resolution period for other complaints, with Report applying the acknowledgement language to every complaint. I’d use one description of what each promise means, when the clock starts, and what acknowledgement or action the reporter sees.
-- **Safe mode.** The default feed in this check again included a joke about homelessness and drugs. That makes the name **Safe** hard to interpret. I’d define what the label covers and carry the same standard into the Home preview. Make **Report** and **Hide** easy to distinguish so users can act on content that falls short.
+- **Safe mode.** The default feed in this check again included a joke about homelessness and drugs. That makes the name **Safe** hard to interpret. Define what the label covers and apply the same rule to the Home preview. Make **Report** and **Hide** easy to distinguish so users can act on content that falls short.
 
 [Venting lobby](whisper-wave-journey-screenshots/venting-guest-lobby.jpg) · [Community Guidelines](https://whisperwave.space/guidelines) · [Terms](https://whisperwave.space/terms)
 
@@ -91,6 +91,6 @@ I’d keep **Leave now** easy to reach even if reporting fails. Give **Block** a
 | Signup and deletion follow the policy | Use a test inbox to complete signup and confirm draft cleanup. With test accounts, verify what happens to persistent DMs, profile data, and any legitimately retained moderation evidence when an account is deleted. |
 | Optional services load at the intended point | Compare browser requests before and after ad consent, notification opt-in, and a payment sandbox flow. Confirm the wording and indicators match the behavior. |
 
-I’d start with the public wording and the guest reporting path. Those are the parts people have to get right before deciding what to share or how to get help.
+My first changes would be explaining retention beside the action that creates it and giving guests a way to report after they’ve left a chat.
 
 Ujjwal Sharma

@@ -1,12 +1,12 @@
 # Where I’d improve the Whisper Wave funnel
 
-The outcome I’d measure is a first conversation where both people send a message. Opening the form, pressing the button, and being matched are useful steps. Each answers a different question about where someone got stuck.
+I followed both ways into Whisper, from the landing page and from Home. Each got me to the form. From there I wanted to know whether the site could tell a stranger opening the form apart from two people actually having a conversation.
 
 I checked the public site and its deployed frontend on 23 November 2026. I used separate Chromium sessions at 360 × 640 and 390 × 844 and followed the landing and Home entry points to the Whisper form. The browser blocked write requests and live connections. I also compared the results with the earlier public journey tests. Visitor counts, conversion rates, and the biggest measured drop-off still need data from the site owner.
 
 ## The tracking problem I found
 
-The deployed frontend imports an analytics function from the Home, Whisper, room directory, and saved-chat code. The function immediately returns without recording or sending the event. These calls mark useful parts of the journey in the code, but the deployed function does nothing with them. [Deployed analytics module](https://whisperwave.space/assets/analytics-6cWqZs8l.js)
+The deployed frontend imports an analytics function from the Home, Whisper, room directory, and saved-chat code. The function immediately returns without recording or sending the event. The calls cover several useful steps. I’d start by making sure events from those steps reach a destination the team can query. [Deployed analytics module](https://whisperwave.space/assets/analytics-6cWqZs8l.js)
 
 The same browser sessions reported that the site’s script policy blocked the Cloudflare analytics beacon. I saw the first-party analytics module load and saw no analytics event requests on the tested entry clicks. Backend reporting could still exist. Its coverage and delivery need to be confirmed with whoever operates the site.
 
@@ -19,7 +19,7 @@ The same browser sessions reported that the site’s script policy blocked the C
 | `whisper_like_sent`, `whisper_mutual`, `whisper_connect_auth_redirect`, `whisper_dm_opened` | The steps around keeping in touch. The open call happens as the app initiates navigation to the DM. I’d check independently that the conversation loads and someone returns to it. |
 | `whisper_session_end` | An end reason, duration, and a combined message count. That count alone can’t show that both people participated. |
 
-I’d start by deciding which events the team needs and sending them to a working destination. On a test run, verify receipt of a form view, queue acceptance, a match, a message from each side, and a terminal outcome using one known test attempt. Check that a retry, page reload, or reconnect leaves the same attempt counted once. A page-view beacon answers a narrower question than the product funnel.
+In a controlled run, follow one attempt from a form view to queue acceptance, a match, a message from each side, and a final outcome. Verify that the destination records each step. Check that a retry, page reload, or reconnect leaves the same attempt counted once. A page-view beacon answers a narrower question than the product funnel.
 
 ## From the homepage to the first message
 
@@ -38,7 +38,7 @@ I tested both entry links at both mobile sizes. They opened the same Whisper for
 
 The landing header’s action was visible near the top in both tests. It said **Find someone** at 360 px and **Find a stranger** at 390 px. The hero button said **Meet a stranger** in both. On Home, **Find someone** sits next to **Browse rooms**, just below a clear explanation of one-to-one matching. The homepage also still shows the fixed “2,417 strangers online now,” while Home displayed “Pretty quiet right now” in this run.
 
-I’d put the plain product explanation beside the first button, use one CTA name, and put **Browse rooms** next to it. I’d remove the fixed activity count. Then I’d measure whether more landing sessions reach the form and whether that change carries through to the first conversation.
+Explain the product next to the first button, use the same label on both entry points, and add **Browse rooms** beside it. Remove the fixed activity count. I’d measure how often landing visits reach the form and whether that carries through to a first conversation.
 
 [Landing at 360 × 640](whisper-wave-funnel-screenshots/landing-360.jpg) · [Home at 360 × 640](whisper-wave-funnel-screenshots/app-home-360.jpg)
 
@@ -46,7 +46,7 @@ I’d put the plain product explanation beside the first button, use one CTA nam
 
 The earlier browser tests confirmed that a valid alias and the 18+ confirmation enabled the join button with gender and vibes blank. On both routes in this check, the form appeared and the join action started disabled. Optional choices take up much of the screen, and the button says **Enter the void**.
 
-I’d put the alias, age check, and action together. Offer an editable starter alias and tuck optional preferences below. Name the action **Start searching** and say why it’s disabled. Track visits to the form and validation reasons separately from attempts the queue accepts. That lets the team tell a confusing form apart from a failed request.
+Keep the alias, age check, and main action together. Offer a starter alias people can edit, with optional preferences below. Name the action **Start searching** and say why it’s disabled. Track visits to the form and validation reasons separately from attempts the queue accepts. That lets the team tell a confusing form apart from a failed request.
 
 [Whisper entry form](whisper-wave-screenshots/chat-entry.png)
 
@@ -54,7 +54,7 @@ I’d put the alias, age check, and action together. Offer an editable starter a
 
 The shipped UI has searching, quiet-queue, and reconnecting states. I stopped at the public form. The actual wait, match rate, and cancellation behavior need controlled testing and real queue data.
 
-I’d give people a clear status, a way to cancel, and a Rooms option when the wait is prolonged. Record one outcome for each accepted attempt, such as matched, canceled, timed out, or connection error. Group results by broad queue availability and local time so a quiet queue doesn’t get mistaken for a form problem. Include unmatched and canceled attempts when looking at wait and abandonment. A wait chart based only on matched users misses the people who left.
+While someone is waiting, show whether the search is still running and give them a way to cancel. Offer Rooms if the wait goes on. Record one outcome for each accepted attempt, such as matched, canceled, timed out, or connection error. Group results by broad queue availability and local time so a quiet queue doesn’t get mistaken for a form problem. Include unmatched and canceled attempts when looking at wait and abandonment. A wait chart based only on matched users misses the people who left.
 
 ### 4. Getting a conversation going
 
@@ -80,8 +80,8 @@ The public frontend shows a mutual-interest step, a sign-in requirement, and a t
 | Does the whole journey improve? | Share of Whisper entry sessions that reach a two-way conversation in the same visit. Use the first attempt to compare specific UI changes and a separate count for repeat attempts. |
 | Does keeping a chat work? | Mutual opt-ins that reach a usable DM divided by mutual opt-ins. Track expiry and incomplete sign-in separately. |
 
-For each metric I’d show the count next to the rate and use the same observation window. Use a random attempt key or another short-lived identifier for joining funnel steps. Useful properties include entry route, CTA placement, device class, queue outcome, and coarse duration. Keep aliases, emails, sign-in tokens, and message contents out of the event data.
+Show the count beside each rate and use the same observation window when comparing results. Use a random attempt key or another short-lived identifier for joining funnel steps. Useful properties include entry route, CTA placement, device class, queue outcome, and coarse duration. Keep aliases, emails, sign-in tokens, and message contents out of the event data.
 
-I’d fix event delivery first, then test the clearer homepage and shorter form. Compare the variants for people arriving under similar queue conditions. Check whether more people reach a two-way conversation, and whether wait, failed sends, block use, and report completion change at the same time.
+Once events are arriving, I’d test the clearer homepage and shorter form under similar queue conditions. The result I’d look for is more two-way conversations. Wait time, failed sends, blocks, and report completion would show whether anything else changed along the way.
 
 Ujjwal Sharma

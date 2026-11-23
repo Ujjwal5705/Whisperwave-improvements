@@ -1,6 +1,6 @@
 # Testing the public journeys on Whisper Wave
 
-I walked through the public site from the homepage, Rooms, Chats, and Pricing. A selected pass reset after a trip to Sign in, the room directory’s account creation link opened the sign-in form, and Tab reached registration fields while the sign-in screen was open.
+On Pricing, I picked the weekly pass, opened Sign in, and pressed Back. The monthly pass was selected when the page returned. I went through the other public handoffs the same way, following the links from the homepage, Rooms, and Chats and checking where they actually took me.
 
 I ran these checks on 22 November 2026 in fresh Chromium sessions, mainly at 390 × 844, with a desktop sign-in check at 1440 × 900. The browser blocked write requests and live socket traffic. The results cover actual public screens and navigation up to the point of matching, joining, signing in, or paying.
 
@@ -28,7 +28,7 @@ I ran these checks on 22 November 2026 in fresh Chromium sessions, mainly at 390
 
 I selected the one-week Spark Pass at ₹49, opened **Sign in to buy**, and then used the browser’s Back button. Pricing came back with the one-month ₹99 plan selected. The sign-in link was `/auth` and the navigation state I inspected carried no plan selection. The duration buttons also exposed no `aria-pressed` or `aria-selected` state on the checked page.
 
-I’d carry the plan selection through the sign-in route and preserve it when someone goes back. Show the selected duration and total at confirmation. I’d use native radio controls or another programmatically selected state for the duration picker. The price change here was observed on browser Back before signing in. The return after successful authentication and payment still need a test.
+Keep the selected plan through Sign in and through browser Back. At confirmation, show the same duration and total. Native radio controls would make the chosen duration available to screen readers. Another accessible control with a programmatic selected state could work too. The price change here was observed on browser Back before signing in. The return after successful authentication and payment still need a test.
 
 [One-week plan before Sign in](whisper-wave-journey-screenshots/pricing-week-selected.jpg) · [One-month plan after Back](whisper-wave-journey-screenshots/pricing-after-return.jpg)
 
@@ -36,7 +36,7 @@ I’d carry the plan selection through the sign-in route and preserve it when so
 
 The Rooms card says “Make an account” and takes you to `/auth`, where the visible screen says **Sign in** and asks for a username and password. I had to choose **Create an account** on that screen to reach `/auth?mode=register`.
 
-I’d link **Make an account** directly to registration and verify what happens to the room context after the account is created.
+Link **Make an account** directly to registration. After account creation, check that the visitor can return to the room they came from.
 
 [What opens from Make an account](whisper-wave-journey-screenshots/rooms-account-sign-in.jpg) · [Registration after the extra step](whisper-wave-journey-screenshots/rooms-account-registration.jpg)
 
@@ -44,13 +44,13 @@ I’d link **Make an account** directly to registration and verify what happens 
 
 I opened Sign in and pressed Tab through the form. After **Create an account**, focus moved to the registration email field, the new password fields, and **Send code**. The page was still in Sign in mode. I hadn’t activated **Create an account**.
 
-I’d keep only the active form in the keyboard order and accessibility tree. When the user switches modes, move focus to the active form heading or first field. Check forward and backward tab order in both modes.
+Keep only the active form in the keyboard order and accessibility tree. When the user switches modes, move focus to the active form heading or first field. Check forward and backward tab order in both modes.
 
 ### 4. A room can be open and waiting for a moderator at the same time
 
 The Venting card showed **Waiting for a moderator** next to **Join**. The lobby said **Always open** and also offered **Join room**. The rule about age appeared in the lobby’s house rules. A guest can get to the lobby, but the screens leave it unclear whether they can enter or post before a moderator arrives.
 
-I’d give the directory and lobby separate labels for opening hours, moderation, and guest posting. If guest posting is held until a moderator arrives, explain that before the join action.
+Give opening hours, moderator availability, and guest posting separate labels on the room card and lobby. If guest posting is held until a moderator arrives, explain that before the join action.
 
 [Venting lobby](whisper-wave-journey-screenshots/venting-guest-lobby.jpg) · [Directory card from the UI review](whisper-wave-screenshots/rooms.jpg)
 
@@ -58,7 +58,7 @@ I’d give the directory and lobby separate labels for opening hours, moderation
 
 Entering a one-character alias showed “Username must be at least 3 characters.” The label says **Your alias**. The field got `aria-invalid="true"` and had no `aria-describedby` association with the visible error.
 
-I’d use “Alias” in both places, associate the error with the field, and verify that it’s announced when the user tabs away or tries again.
+Use “Alias” in the label and in the error. Associate the error with the field and verify that it’s announced when the user tabs away or tries again.
 
 [Invalid alias in the guest form](whisper-wave-journey-screenshots/chat-alias-error.jpg)
 
@@ -77,6 +77,6 @@ I opened a room URL with a nonexistent name. The browser showed **Room not found
 | Password recovery and registration | Use test inboxes to verify code and reset-link delivery, expiry, retries, and successful continuation. |
 | Checkout | Use a payment sandbox to test plan return after sign-in, the confirmation amount, success, cancellation, failure, and whether the pass is applied exactly once. |
 
-These are the public journeys I could reproduce. The account and live tests need two controlled participants, test inboxes, and a payment sandbox.
+To finish the account and live tests, I’d use two controlled participants, test inboxes, and a payment sandbox.
 
 Ujjwal Sharma

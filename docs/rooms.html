@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#15101d">
+  <title>Topic rooms | Whisper Wave</title>
+  <meta name="description" content="Browse example topic rooms for music, late-night talk, and games. See prompts and room rules before you join.">
+  <meta property="og:title" content="Topic rooms | Whisper Wave">
+  <meta property="og:description" content="Browse example topic rooms for music, late-night talk, and games. See prompts and room rules before you join.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/whisper-wave-mark-64.png" type="image/png">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body data-page="rooms">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="wordmark" href="index.html"><img src="assets/whisper-wave-mark-64.png" width="38" height="38" alt=""><span>Whisper<strong> Wave</strong></span></a>
+      <nav class="top-nav" aria-label="Main"><a href="rooms.html" aria-current="page">Rooms</a><a href="prompts.html">Prompts</a><a href="safety.html">Safety</a></nav>
+      <a class="button button-primary header-action" href="chat.html">Start a chat</a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="shell inner-page">
+  <div class="page-intro">
+    <p class="eyebrow">Topic rooms</p>
+    <h1>Find your kind of conversation.</h1>
+    <p class="lead">See what a room is about and read the rules before you pick a topic. These are room previews.</p>
+  </div>
+  <div class="room-search" hidden>
+    <label for="room-filter">Filter rooms</label>
+    <input id="room-filter" type="search" placeholder="Try music or games" autocomplete="off">
+    <button class="button button-outline" type="button" id="clear-filter" hidden>Clear filter</button>
+    <p class="small" id="room-result" role="status"></p>
+  </div>
+  <div class="room-list">
+    <article id="listening-room" class="panel room-detail" data-topics="music songs playlists">
+      <span class="topic-icon" aria-hidden="true">♫</span>
+      <div><p class="eyebrow">Music</p><h2>The Listening Room</h2><p>Bring one song you can’t stop playing and tell us the best moment in it.</p>
+      <details><summary>Room rules</summary><p>Suggest one track at a time. Keep it kind when someone’s taste is different from yours.</p></details>
+      <a class="button button-outline" href="chat.html?topic=music">Try a Music chat</a></div>
+    </article>
+    <article id="late-night" class="panel room-detail" data-topics="late night quiet after hours">
+      <span class="topic-icon" aria-hidden="true">☾</span>
+      <div><p class="eyebrow">After hours</p><h2>Late Night</h2><p>A slower conversation for people still up. Start with the small thing you’re thinking about.</p>
+      <details><summary>Room rules</summary><p>Give people space to pass on a question. Ask before offering advice.</p></details>
+      <a class="button button-outline" href="chat.html?topic=late-night">Try a Late Night chat</a></div>
+    </article>
+    <article id="co-op" class="panel room-detail" data-topics="games gaming co-op">
+      <span class="topic-icon" aria-hidden="true">◇</span>
+      <div><p class="eyebrow">Games</p><h2>Co-op Corner</h2><p>What would you play with someone who’s never picked up a controller?</p>
+      <details><summary>Room rules</summary><p>Keep game and platform preferences welcoming. Ask before sending an off-site invite.</p></details>
+      <a class="button button-outline" href="chat.html?topic=games">Try a Games chat</a></div>
+    </article>
+  </div>
+  <p id="rooms-empty" class="side-note" hidden>No rooms match that search. Clear it to see all three previews.</p>
+</section>
+  </main>
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div><a class="wordmark" href="index.html"><img src="assets/whisper-wave-mark-64.png" width="38" height="38" alt=""><span>Whisper<strong> Wave</strong></span></a><p>Independent redesign prototype by Ujjwal Sharma</p></div>
+      <nav aria-label="Footer">
+        <a href="rooms.html">Rooms</a>
+        <a href="safety.html">Safety</a>
+        <a href="pass.html">Spark Pass</a>
+        <a href="https://github.com/Ujjwal5705/Whisperwave-improvements">Research notes</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
