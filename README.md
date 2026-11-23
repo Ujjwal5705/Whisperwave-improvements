@@ -4,7 +4,7 @@ I started with the mobile homepage and tried to get to the point where I could s
 
 Two things stood out. I chose the ₹49 weekly pass, opened Sign in, and went back to find the ₹99 monthly pass selected. On the sign-in page itself, pressing Tab took me into registration fields while the sign-in form was still on screen. Both issues are easy to miss when looking at a single screenshot.
 
-I built a working redesign to show what I’d change. Try the shorter guest setup, browse the sample rooms, or see how the weekly pass stays selected after you go back. [Open the prototype](https://ujjwal5705.github.io/Whisperwave-improvements/) · [Read the design and growth notes](Ujjwal-Sharma-Whisper-Wave-Prototype-and-Growth.md)
+I built a working redesign around the first message. Pick a question on the homepage, bring it into a demo chat, or share the exact question with someone. The redesign also shows the shorter guest setup and the pass that stays selected after you go back. [Open the prototype](https://ujjwal5705.github.io/Whisperwave-improvements/) · [Read the design and growth notes](Ujjwal-Sharma-Whisper-Wave-Prototype-and-Growth.md)
 
 The main checks took place on 22 and 23 November 2026. This page has 51 UI and UX findings. The other notes include the steps I followed, measurements, and screenshots from the public deployment. Most mobile screenshots use a 390 × 844 viewport. Live chat, authenticated access, and actual conversion rates still need site-owner data or a controlled environment.
 

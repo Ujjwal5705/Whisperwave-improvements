@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, follow">
-  <meta name="theme-color" content="#15101d">
+  <meta name="theme-color" content="#f7f2eb">
   <title>Whisper Wave | Anonymous text chat</title>
-  <meta name="description" content="Meet someone for a one-to-one text chat or find a room with a topic you like. A redesign prototype for Whisper Wave.">
+  <meta name="description" content="Pick a first line and bring it into a one-to-one text chat. Explore topic rooms or share a question with a friend.">
   <meta property="og:title" content="Whisper Wave | Anonymous text chat">
-  <meta property="og:description" content="Meet someone for a one-to-one text chat or find a room with a topic you like. A redesign prototype for Whisper Wave.">
+  <meta property="og:description" content="Pick a first line and bring it into a one-to-one text chat. Explore topic rooms or share a question with a friend.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/whisper-wave-mark-64.png" type="image/png">
   <link rel="stylesheet" href="assets/styles.css">
@@ -24,65 +24,71 @@
     </div>
   </header>
   <main id="main" tabindex="-1">
-    <section class="shell hero" aria-labelledby="hero-title">
-  <div class="hero-copy">
-    <p class="eyebrow">Anonymous text chat</p>
-    <h1 id="hero-title">Talk to a stranger.<br><em>Start with hello.</em></h1>
-    <p class="lead">A one-to-one chat can start with a nickname and a little curiosity. Pick a topic if you have one, or see where the conversation goes.</p>
-    <div class="actions">
-      <a class="button button-primary" href="chat.html">Start a chat</a>
-      <a class="button button-outline" href="rooms.html">Browse rooms</a>
+    <section class="shell front-page" aria-labelledby="hero-title">
+      <div class="front-copy">
+        <p class="eyebrow">Anonymous text chat</p>
+        <h1 id="hero-title">Skip the<br><em>small talk.</em></h1>
+        <p class="lead">Pick a question you’d actually want to answer. Bring it into a one-to-one conversation under an alias.</p>
+        <a class="quiet-link" href="chat.html">Start with my own line</a>
+        <p class="front-note">Text only <span aria-hidden="true">·</span> Ages 18+ <span aria-hidden="true">·</span> No account to start</p>
+      </div>
+
+      <section class="open-line" aria-labelledby="open-line-title">
+        <div class="open-line-top">
+          <h2 id="open-line-title">Pick a first line.</h2>
+          <fieldset class="mood-picker" id="mood-picker" hidden>
+            <legend class="sr-only">Choose a mood</legend>
+            <label><input type="radio" name="mood" value="easy" checked><span>Easy</span></label>
+            <label><input type="radio" name="mood" value="curious"><span>Curious</span></label>
+            <label><input type="radio" name="mood" value="after-dark"><span>After dark</span></label>
+          </fieldset>
+        </div>
+        <div class="open-line-art">
+          <div class="opening-note">
+            <p id="opening-question" role="status">What’s a tiny thing that made your week better?</p>
+          </div>
+        </div>
+        <div class="open-line-controls">
+          <a class="button button-primary" id="start-with-line" href="chat.html?prompt=small-win">Bring this into chat</a>
+          <button class="text-button" type="button" id="next-line" hidden>Another question</button>
+          <button class="text-button" type="button" id="share-line" hidden>Copy link</button>
+        </div>
+        <p class="opening-share" id="opening-share-status" role="status"></p>
+      </section>
+    </section>
+
+    <div class="demo-strip">
+      <p class="shell"><strong>Redesign preview.</strong> Try a scripted conversation and sample rooms. <a href="https://whisperwave.space/">Visit the live site</a></p>
     </div>
-    <p class="hero-note">Ages 18+ <span aria-hidden="true">·</span> Text only <span aria-hidden="true">·</span> No account to start</p>
-  </div>
-  <figure class="hero-art">
-    <img class="tide-photo" src="assets/night-wave.jpg" width="900" height="1125" alt="" fetchpriority="high">
-    <figcaption class="sample-chat">
-      <p class="sample-caption"><img src="assets/whisper-wave-mark-64.png" width="24" height="24" alt=""> Example conversation</p>
-      <p class="bubble">what’s a song you wish you could hear for the first time again?</p>
-      <p class="bubble bubble-you">Space Song. Preferably on a train somewhere.</p>
-      <p class="bubble">okay, what’s the first stop?</p>
-    </figcaption>
-  </figure>
-</section>
-<div class="demo-strip">
-  <p class="shell"><strong>Redesign preview.</strong> The chats, rooms, and checkout are demos. <a href="https://whisperwave.space/">Visit the live Whisper Wave site</a></p>
-</div>
-<section class="shell section room-section" aria-labelledby="rooms-title">
-  <div class="section-heading">
-    <div><p class="eyebrow">Topic rooms</p><h2 id="rooms-title">Show up with something to say.</h2></div>
-    <a class="quiet-link" href="rooms.html">Browse all rooms</a>
-  </div>
-  <div class="card-grid">
-    <article class="topic-card">
-      <span class="topic-icon" aria-hidden="true">♫</span><h3>The Listening Room</h3>
-      <p>Trade songs and find the one someone else has on repeat.</p>
-      <a href="rooms.html#listening-room">Preview Music</a>
-    </article>
-    <article class="topic-card">
-      <span class="topic-icon" aria-hidden="true">☾</span><h3>Late Night</h3>
-      <p>Low-key questions for the nights you’re still awake.</p>
-      <a href="rooms.html#late-night">Preview Late Night</a>
-    </article>
-    <article class="topic-card">
-      <span class="topic-icon" aria-hidden="true">◇</span><h3>Co-op Corner</h3>
-      <p>Find a co-op game, trade recommendations, or argue over your favorite level.</p>
-      <a href="rooms.html#co-op">Preview Games</a>
-    </article>
-  </div>
-</section>
-<section class="shell prompt-banner" aria-labelledby="prompt-title">
-  <div>
-    <p class="eyebrow">Conversation starters</p>
-    <h2 id="prompt-title">What’s a tiny thing that made your week better?</h2>
-    <p>Bring a question into your first chat or send the prompt to a friend.</p>
-  </div>
-  <a class="button button-outline" href="prompts.html">Try a prompt</a>
-</section>
-<section class="shell section safety-summary" aria-labelledby="leave-title">
-  <h2 id="leave-title">You decide when a chat ends.</h2>
-  <div><p>Use an alias and share only what you’re comfortable sharing. Leave, block, and report stay within reach during the chat.</p><a class="quiet-link" href="safety.html">See the safety controls</a></div>
-</section>
+
+    <section class="shell section room-board" aria-labelledby="rooms-title">
+      <div class="room-board-copy">
+        <h2 id="rooms-title">Find a room<br>with a topic.</h2>
+        <p>See what people could talk about before you join.</p>
+        <a class="quiet-link" href="rooms.html">Browse all rooms</a>
+      </div>
+      <div class="room-board-list">
+        <a class="room-board-link" href="rooms.html#listening-room">
+          <span class="room-topic">Music</span>
+          <span><strong>The Listening Room</strong><span>Bring one song you can’t stop playing.</span></span>
+        </a>
+        <a class="room-board-link" href="rooms.html#late-night">
+          <span class="room-topic">After hours</span>
+          <span><strong>Late Night</strong><span>Talk about the small thing keeping you up.</span></span>
+        </a>
+        <a class="room-board-link" href="rooms.html#co-op">
+          <span class="room-topic">Games</span>
+          <span><strong>Co-op Corner</strong><span>Pick a game you’d play with someone new.</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="safety-band" aria-labelledby="leave-title">
+      <div class="shell safety-summary">
+        <h2 id="leave-title">You decide when a chat ends.</h2>
+        <div><p>Use an alias and share what you’re comfortable sharing. Leave, block, and report are available during the chat.</p><a class="quiet-link" href="safety.html">See the safety controls</a></div>
+      </div>
+    </section>
   </main>
   <footer class="site-footer">
     <div class="shell footer-inner">

@@ -10,15 +10,109 @@ const topics = new Map([
 ])
 
 const prompts = new Map([
-  ['small-win', 'What’s a tiny thing that made your week better?'],
-  ['first-listen', 'What song do you wish you could hear for the first time again?'],
-  ['open-window', 'If you could open a window anywhere right now, what would you see?']
+  ['small-win', {
+    question: 'What’s a tiny thing that made your week better?',
+    reply: 'My neighbor left a bowl of little oranges in the hall with a take-one note.'
+  }],
+  ['comfort-food', {
+    question: 'What’s your best meal made from whatever was left in the fridge?',
+    reply: 'Fried rice with an egg, a sad carrot, and enough chili crisp to make it work.'
+  }],
+  ['first-listen', {
+    question: 'What song do you wish you could hear for the first time again?',
+    reply: 'Space Song. Preferably on a train somewhere.',
+    topic: 'music'
+  }],
+  ['odd-skill', {
+    question: 'What’s a useless skill you’re quietly proud of?',
+    reply: 'I can guess which drawer has the cutlery in almost any kitchen.'
+  }],
+  ['open-window', {
+    question: 'If you could open a window anywhere right now, what would you see?',
+    reply: 'A harbor before sunrise. Maybe one light in a kitchen across the water.',
+    topic: 'late-night'
+  }],
+  ['changed-mind', {
+    question: 'What’s something you’ve changed your mind about lately?',
+    reply: 'Taking the long way home. I used to think it was a waste of time.',
+    topic: 'late-night'
+  }]
+])
+
+const moods = new Map([
+  ['easy', ['small-win', 'comfort-food']],
+  ['curious', ['first-listen', 'odd-skill']],
+  ['after-dark', ['open-window', 'changed-mind']]
 ])
 
 const plans = new Map([
   ['week', { name: 'One-week Spark Pass', total: '₹49 for 7 days from purchase.' }],
   ['month', { name: 'One-month Spark Pass', total: '₹99 for one month from purchase.' }]
 ])
+
+async function copyLink(url, status) {
+  try {
+    await navigator.clipboard.writeText(url.href)
+    status.textContent = 'Question link copied.'
+  } catch {
+    status.replaceChildren(document.createTextNode('Copy this link: '))
+    const link = document.createElement('a')
+    link.href = url.href
+    link.textContent = url.href
+    status.append(link)
+  }
+}
+
+function setupOpenLine() {
+  const picker = byId('mood-picker')
+  const question = byId('opening-question')
+  const start = byId('start-with-line')
+  const next = byId('next-line')
+  const share = byId('share-line')
+  const status = byId('opening-share-status')
+  const initialLine = query.get('line')
+  const initialMood = [...moods].find(([, lines]) => lines.includes(initialLine))
+  let mood = initialMood?.[0] || 'easy'
+  let line = initialMood ? initialLine : moods.get(mood)[0]
+
+  function showLine() {
+    const opener = prompts.get(line)
+    const target = new URL('chat.html', location.href)
+    target.searchParams.set('prompt', line)
+    if (opener.topic) target.searchParams.set('topic', opener.topic)
+    question.textContent = opener.question
+    start.href = target.href
+    status.textContent = ''
+  }
+
+  function selectLine(nextLine) {
+    line = nextLine
+    const saved = new URL(location.href)
+    saved.searchParams.set('line', line)
+    history.replaceState(null, '', saved)
+    showLine()
+  }
+
+  for (const radio of picker.querySelectorAll('input')) radio.checked = radio.value === mood
+  picker.addEventListener('change', event => {
+    mood = event.target.value
+    selectLine(moods.get(mood)[0])
+  })
+  next.addEventListener('click', () => {
+    const lines = moods.get(mood)
+    const index = (lines.indexOf(line) + 1) % lines.length
+    selectLine(lines[index])
+  })
+  share.addEventListener('click', () => {
+    const url = new URL('./', location.href)
+    url.searchParams.set('line', line)
+    void copyLink(url, status)
+  })
+  showLine()
+  picker.hidden = false
+  next.hidden = false
+  share.hidden = false
+}
 
 function setupChat() {
   const entry = byId('guest-entry')
@@ -38,6 +132,7 @@ function setupChat() {
   ]
   let aliasIndex = Math.floor(Math.random() * aliases.length)
   let replyIndex = 0
+  let openerAnswered = false
 
   function showPanel(panelId, focusId) {
     for (const panel of panels) panel.hidden = panel.id !== panelId
@@ -71,7 +166,7 @@ function setupChat() {
 
   if (selectedPrompt) {
     const entryPrompt = byId('entry-prompt')
-    entryPrompt.textContent = 'Your starter question: ' + selectedPrompt
+    entryPrompt.textContent = 'Your first line: ' + selectedPrompt.question
     entryPrompt.hidden = false
     byId('use-prompt').hidden = false
   }
@@ -100,9 +195,15 @@ function setupChat() {
   byId('cancel-search').addEventListener('click', () => showPanel('entry-panel', 'alias'))
   byId('meet-partner').addEventListener('click', () => {
     replyIndex = 0
+    openerAnswered = false
     showPanel('chat-panel', 'chat-title')
     const preference = topics.get(topic.value)
-    addMessage(preference?.hello || 'Hey. What’s something good you’ve come across today?')
+    if (selectedPrompt) {
+      addMessage('Hey. Want to go first?')
+      reply.value = selectedPrompt.question
+    } else {
+      addMessage(preference?.hello || 'Hey. What’s something good you’ve come across today?')
+    }
   })
 
   byId('message-form').addEventListener('submit', event => {
@@ -114,7 +215,10 @@ function setupChat() {
     }
     addMessage(text, true)
     reply.value = ''
-    if (replyIndex < replies.length) {
+    if (selectedPrompt?.question === text && !openerAnswered) {
+      openerAnswered = true
+      addMessage(selectedPrompt.reply)
+    } else if (replyIndex < replies.length) {
       addMessage(replies[replyIndex])
       replyIndex += 1
     }
@@ -122,7 +226,7 @@ function setupChat() {
   })
 
   byId('use-prompt').addEventListener('click', () => {
-    reply.value = selectedPrompt
+    reply.value = selectedPrompt.question
     reply.focus()
   })
 
@@ -170,20 +274,11 @@ function setupPrompts() {
   const status = byId('share-status')
   for (const button of document.querySelectorAll('[data-share]')) {
     button.hidden = false
-    button.addEventListener('click', async () => {
+    button.addEventListener('click', () => {
       const url = new URL(location.href)
       url.search = ''
       url.hash = button.dataset.share
-      try {
-        await navigator.clipboard.writeText(url.href)
-        status.textContent = 'Prompt link copied.'
-      } catch {
-        status.replaceChildren(document.createTextNode('Copy this link: '))
-        const link = document.createElement('a')
-        link.href = url.href
-        link.textContent = url.href
-        status.append(link)
-      }
+      void copyLink(url, status)
     })
   }
 }
@@ -207,6 +302,7 @@ function setupPass() {
 }
 
 const setup = {
+  index: setupOpenLine,
   chat: setupChat,
   rooms: setupRooms,
   prompts: setupPrompts,

@@ -1,28 +1,28 @@
-# A revised Whisper Wave and how people could find it
+# A better opening line for Whisper Wave
 
 [Open the working prototype](https://ujjwal5705.github.io/Whisperwave-improvements/) · [Download the new logo mark](docs/assets/whisper-wave-mark.png) · [Browse the frontend files](docs/)
 
-The original review turned up a basic mismatch. The landing page makes people scroll to learn what the product does, but the app asks them to choose gender and vibes before it explains the two things they need to do. I built this version around a shorter path. The first screen says it’s anonymous text chat and gives people two choices. They can start a chat or see what the rooms are about.
+The original review showed how much work it took to get to the guest form. There’s another hurdle after that. Two people can match and still have no idea what to say. I put a small deck of opening questions on the homepage so someone can try the idea before joining a chat. Pick a mood, find a line you like, and take it with you.
 
-![Desktop homepage with the new wordmark, two entry points, and a labeled example conversation](whisper-wave-prototype-screenshots/home-desktop.jpg)
+![Desktop homepage with the wordmark and an interactive opening-line deck on a violet print](whisper-wave-prototype-screenshots/home-desktop.jpg)
 
 ## What changed in the frontend
 
-- **Homepage.** The description and both actions appear beside the example conversation on desktop and above it on mobile. The sample is labeled. There’s no live activity count to maintain or explain when the queue is quiet.
+- **Homepage.** Easy, Curious, and After dark each have two original questions. A visitor can spin through the questions, copy a link to one, or start a chat with their own line.
 - **Guest setup and waiting.** An alias and the 18+ check are enough to proceed. The alias suggestion is editable. Topic preferences are optional. The waiting screen offers cancellation and a path to Rooms. It keeps the alias and topic if someone cancels.
 - **Conversation and safety.** Leave, Block, and Report are separate actions. The report form says what the demo sends and shows a receipt after it clears the chat. In a live version, I’d require the report copy to match the actual evidence collected and retention policy.
 - **Rooms.** Search the sample rooms by topic, read their rules, and carry a topic into one-to-one chat. A quiet room still gives visitors something to read and an idea of what they could talk about.
-- **Prompts.** Each question has a link that opens on the right card. The same prompt can carry into chat, where the guest can edit it before sending.
+- **Prompts.** The shared link opens the same question and mood. When a guest chooses to bring a question into chat, it appears in the composer as an editable draft. The demo partner has a different scripted answer for each question.
 - **Spark Pass.** The two prices use native radio buttons. The chosen plan stays visible at the mock sign-in handoff and survives browser Back and reload.
 - **Page metadata.** Each route sends its own title, description, and readable content in HTML. The GitHub preview carries `noindex` so it can be shared without competing with the live site in search.
 
 | Mobile homepage | Mobile demo chat |
 | --- | --- |
-| ![Mobile homepage showing the two actions above the example chat](whisper-wave-prototype-screenshots/home-mobile.jpg) | ![Mobile demo chat showing the transcript and persistent access to leave, block, and report](whisper-wave-prototype-screenshots/chat-mobile.jpg) |
+| ![Mobile homepage with the mood choices and opening question](whisper-wave-prototype-screenshots/home-mobile.jpg) | ![Mobile demo chat showing a selected opening line and the partner’s scripted reply](whisper-wave-prototype-screenshots/chat-mobile.jpg) |
 
 The demo is HTML, CSS, and JavaScript with no build step. It uses scripted replies and room examples. No live matching, user accounts, payment, report delivery, or analytics are connected. To run the source locally, serve `docs/` with any static HTTP server and open its homepage.
 
-I checked the prototype in Chromium at 1440, 390, and 320 px. I exercised the age gate, queue cancellation, a scripted conversation, Escape from the report dialog, and the pass selection through Back and reload. The automated axe scan reported no violations on the seven main pages in the sampled states. That covers the automated scan and the tested paths.
+I checked the prototype in Chromium at 1440, 390, and 320 px. I used the keyboard to change moods, reopened a copied question link, and verified that the opener stayed a draft until I sent it. I also rechecked queue cancellation, the report dialog, and the pass selection after Back and reload. The automated axe scan reported zero violations on the seven main pages in the sampled states.
 
 ## The new logo and palette
 
@@ -30,7 +30,7 @@ I checked the prototype in Chromium at 1440, 390, and 320 px. I exercised the ag
 
 The mark combines a W-shaped wave with a speech bubble. The header spells out **Whisper Wave** next to it, so the mark can work on its own in a small tab without taking a letter out of the name. The [1024 px mark](docs/assets/whisper-wave-mark.png) and [64 px favicon](docs/assets/whisper-wave-mark-64.png) use the same shape.
 
-I kept the dark purple from the existing site. Lavender `#B6A0FF` is the main action color, plum `#15101D` is the background, and mint `#79E8D8` is reserved for keyboard focus. The primary buttons use dark text for a contrast ratio of about 8.07:1. Colors, typography, and controls carry across the landing page, chat, and pricing. The [brand review](Ujjwal-Sharma-Whisper-Wave-SEO-and-Brand-Review.md) has the fuller palette and contrast checks.
+I used the violet identity as ink on a paper-colored interface. Deep violet `#4F288E` handles the main actions, warm paper `#F7F2EB` keeps reading areas quiet, and rust `#983F15` marks keyboard focus. The opening deck is based on a note passed across a table. The two printed waves frame it without competing with the question. The same visual choices carry through chat, rooms, and pricing. The [brand review](Ujjwal-Sharma-Whisper-Wave-SEO-and-Brand-Review.md) also covers how the current site could simplify its dark palette.
 
 ## What I’d borrow from other products
 
